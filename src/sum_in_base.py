@@ -11,4 +11,15 @@ def add_in_base(a: str, b: str, base: int) -> str:
         add_in_base("1011", "111", 2) -> "10010"
         add_in_base("FF", "1", 16) -> "100"
     """
-    raise NotImplementedError("Реализуйте функцию add_in_base")
+
+    if not 2 <= base <= 36:
+        raise ValueError("Система счисления должна быть между 2 и 36")
+
+    digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    valid = set(digits[:base])
+
+    for operand in (a, b):
+        if not operand or any(ch.upper() not in valid for ch in operand):
+            raise ValueError(f"Неверная цифра в операнде - {operand!r} для системы счисления {base}")
+
+    
